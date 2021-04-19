@@ -3,7 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:newfutterpro/mywidgets/mainBanner.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'constants/mycolor.dart';
 import 'mywidgets/listItem.dart';
+import 'mywidgets/myMap.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
+  final cHour = DateTime.now().hour;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -35,7 +38,6 @@ class _MyHomePageState extends State<MyHomePage>
   Animation _animation;*/
   TabController _tabController;
   FocusNode _focusNode = FocusNode();
-
   @override
   void initState() {
     super.initState();
@@ -119,56 +121,39 @@ class _MyHomePageState extends State<MyHomePage>
                                 blurRadius: 10.0,
                                 spreadRadius: 2.0)
                           ],
-                          color: Colors.orangeAccent,
+                          color: MyColor.theme_color,
                           borderRadius: BorderRadius.circular(10)),
                     ),
                   ),
                   Expanded(
                       child: TabBarView(children: [
-                        ListView.builder(
-                            padding: EdgeInsets.only(top: 10),
-                            physics: const BouncingScrollPhysics(
-                                parent: AlwaysScrollableScrollPhysics()),
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: 3,
-                            itemBuilder: (BuildContext context, int index) {
-                              return listItem(context);
-                            }),
-                    Container(color: Colors.yellow, height: 200.0)
+                    ListView.builder(
+                        padding: EdgeInsets.only(top: 10),
+                        physics: const BouncingScrollPhysics(
+                            parent: AlwaysScrollableScrollPhysics()),
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: 3,
+                        itemBuilder: (BuildContext context, int index) {
+                          return listItem(context, index);
+                        }),
+                    Expanded(
+                        child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0),
+                          border: Border.all(
+                              color: MyColor.theme_color,
+                              width: 2.0,
+                              style: BorderStyle.solid)),
+                      child: myMap(context),
+                      margin:
+                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+                    ))
                   ], controller: _tabController))
                 ])))); // This trailing comma makes auto-formatting nicer for build methods.
   }
 }
 
-/*
-     ListView.builder(
-                    padding: EdgeInsets.only(top: 10),
-                      physics: const BouncingScrollPhysics(
-                          parent: AlwaysScrollableScrollPhysics()),
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: 3,
-                      itemBuilder: (BuildContext context, int index) {
-                        return listItem(context);
-                      })
-
-                       Container(
-                    margin: EdgeInsets.only(top: 30),
-                    alignment: Alignment.center,
-                    height: 65,
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(10)),
-                    child: TextField(
-                      decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.access_alarm),
-                          hintText: 'Search for outlet',
-                          border: InputBorder.none),
-                      style: GoogleFonts.muli(fontSize: 15),
-                    ),
-                  ),
-*/
 Widget _tabStyle(String text) {
   return Tab(
     child:
@@ -184,7 +169,7 @@ Widget _logoText(BuildContext context) {
         style: GoogleFonts.muli(
             textStyle: TextStyle(
                 decoration: TextDecoration.none,
-                color: Colors.orangeAccent,
+                color: MyColor.theme_color,
                 fontSize: 25,
                 fontWeight: FontWeight.w900))),
     TextSpan(
