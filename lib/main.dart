@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:newfutterpro/approutes.dart';
+import 'package:newfutterpro/myfunctions/appfunc.dart';
 import 'package:newfutterpro/mywidgets/mainBanner.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:newfutterpro/constants/routes.dart';
 
 import 'constants/mycolor.dart';
 import 'mywidgets/listItem.dart';
@@ -16,6 +19,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      onGenerateRoute: AppRoutes.generateRoutes,
+      initialRoute: MyRoutes.homePage,
       title: 'Burger Shack',
       debugShowCheckedModeBanner: false,
       home: MyHomePage(title: 'Testing'),
@@ -26,7 +31,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
-  final cHour = DateTime.now().hour;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -93,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage>
                       margin: EdgeInsets.only(top: 10),
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Good afternoon",
+                        "Good ${AppFunc.getTime()}",
                         style: GoogleFonts.muli(
                             textStyle: TextStyle(
                                 color: Colors.grey,

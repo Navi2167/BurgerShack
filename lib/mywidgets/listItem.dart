@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:newfutterpro/approutes.dart';
 import 'package:newfutterpro/constants/mycolor.dart';
+import 'package:newfutterpro/constants/routes.dart';
 
 Widget listItem(BuildContext context, int index) {
   var height = MediaQuery.of(context).size.height;
@@ -32,8 +34,7 @@ Widget listItem(BuildContext context, int index) {
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.white)),
                   onPressed: () {
-
-                    print('index $index');
+                    Navigator.pushNamed(context, MyRoutes.pickPage);
                   },
                   child: Text('Open Now',
                       style: GoogleFonts.muli(
